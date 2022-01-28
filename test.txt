@@ -1,0 +1,3 @@
+This is an example file
+with a couple of lines of text
+here's some more stuff to prove that I'm not a rotten liar
