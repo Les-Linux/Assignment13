@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en-us" xmlns:th="http://www.thymeleaf.org">
+<html lang="en-us" xmlns:th="http://thymeLeaf.org">
 	<head>
 		<title>Users</title>
 	</head>
@@ -7,7 +7,7 @@
 		<h1>Users</h1>
 		
 		<div th:if="${#lists.size(users) == 1}">
-			<form action="@{/users/{userId}/accounts/" method="post">
+			<form action="" method="post">
 				<div>
 					Username: <label><input type="text" th:field="${user.username}" /></label>
 				</div>

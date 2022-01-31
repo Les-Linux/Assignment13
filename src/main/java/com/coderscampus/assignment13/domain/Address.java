@@ -3,7 +3,6 @@ package com.coderscampus.assignment13.domain;
 import javax.persistence.*;
 
 @Entity
-@Table(name="address")
 public class Address {
 	private Long userId;
 	private User user;

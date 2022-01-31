@@ -76,8 +76,7 @@ public class UserService {
 			address.setRegion(user.getAddress().getRegion());
 			address.setCountry(user.getAddress().getCountry());
 			address.setZipCode(user.getAddress().getZipCode());
-			addressRepo.save(address);
-			userRepo.save(user);
+			user.setAddress(address);
 		}
 
 		return userRepo.save(user);
