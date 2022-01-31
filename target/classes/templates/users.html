@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://thymeleaf.org">
+<html lang="en-us" xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<title>Users</title>
 	</head>
@@ -7,16 +7,26 @@
 		<h1>Users</h1>
 		
 		<div th:if="${#lists.size(users) == 1}">
-			<form action="" method="post">
+			<form action="@{/users/{userId}/accounts/" method="post">
 				<div>
-					Username: <input type="text" th:field="${user.username}" />
+					Username: <label><input type="text" th:field="${user.username}" /></label>
 				</div>
 				<div>
-					Password: <input type="password" th:field="${user.password}" />
+					Password: <label><input type="password" th:field="${user.password}" /></label>
 				</div>
 				<div>
-					Full Name: <input type="text" th:field="${user.name}" />
+					Full Name: <label><input type="text" th:field="${user.name}" /></label>
 				</div>
+				<hr>
+				<div>
+					<span>Address Line 1: <label><input type="text" th:field="${user.address.addressLine1}"/></label></span><br>
+					<span>Address Line 2: <label><input type="text" th:field="${user.address.addressLine2}"/></label></span><br>
+					<span>City: <label><input type="text" th:field="${user.address.city}"/></label></span><br>
+					<span>Region: <label><input type="text" th:field="${user.address.region}"/></label></span><br>
+					<span>Country: <label><input type="text" th:field="${user.address.country}"/></label></span><br>
+					<span>Zip Code: <label><input type="text" th:field="${user.address.zipCode}"/></label></span><br>
+				</div>
+				<br>
 				<div>
 					<input type="submit" value="Update User Account" />
 				</div>
@@ -27,7 +37,7 @@
 		</div>
 		
 		<div th:unless="${#lists.size(users) == 1}" th:each="user : ${users}">
-		    <span th:text="${user.userId}"></span><br/>
+			<span><a th:href="@{/users/{userId}(userId=${user.userId})}" th:text="${user.userId}" method="post" ></a></span></br>
 			<span th:text="${user.username}"></span><br/>
 			<span th:text="${user.name}"></span><br/>
 			<span th:text="${user.password}"></span>

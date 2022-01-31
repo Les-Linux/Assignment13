@@ -1,17 +1,18 @@
 package com.coderscampus.assignment13.service;
 
+import com.coderscampus.assignment13.domain.Account;
+import com.coderscampus.assignment13.domain.Address;
+import com.coderscampus.assignment13.domain.User;
+import com.coderscampus.assignment13.repository.AccountRepository;
+import com.coderscampus.assignment13.repository.AddressRepository;
+import com.coderscampus.assignment13.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import com.coderscampus.assignment13.domain.Account;
-import com.coderscampus.assignment13.domain.User;
-import com.coderscampus.assignment13.repository.AccountRepository;
-import com.coderscampus.assignment13.repository.UserRepository;
 
 @Service
 public class UserService {
@@ -20,6 +21,8 @@ public class UserService {
 	private UserRepository userRepo;
 	@Autowired
 	private AccountRepository accountRepo;
+	@Autowired
+	AddressRepository addressRepo;
 	
 	public List<User> findByUsername(String username) {
 		return userRepo.findByUsername(username);
@@ -63,7 +66,20 @@ public class UserService {
 			user.getAccounts().add(savings);
 			accountRepo.save(checking);
 			accountRepo.save(savings);
+		} else{
+			Address address = new Address();
+			address.setUserId(user.getUserId().longValue());
+			address.setUser(user);
+			address.setAddressLine1(user.getAddress().getAddressLine1());
+			address.setAddressLine2(user.getAddress().getAddressLine2());
+			address.setCity(user.getAddress().getCity());
+			address.setRegion(user.getAddress().getRegion());
+			address.setCountry(user.getAddress().getCountry());
+			address.setZipCode(user.getAddress().getZipCode());
+			addressRepo.save(address);
+			userRepo.save(user);
 		}
+
 		return userRepo.save(user);
 	}
 
