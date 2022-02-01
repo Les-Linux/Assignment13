@@ -1,6 +1,8 @@
 package com.coderscampus.assignment13.web;
 
+import com.coderscampus.assignment13.domain.Account;
 import com.coderscampus.assignment13.domain.User;
+import com.coderscampus.assignment13.service.AccountService;
 import com.coderscampus.assignment13.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Set;
 
@@ -17,7 +20,10 @@ public class UserController {
 	
 	@Autowired
 	private UserService userService;
-	
+
+	@Autowired
+	private AccountService accountService;
+
 	@GetMapping("/register")
 	public String getCreateUser (ModelMap model) {
 		
@@ -29,6 +35,7 @@ public class UserController {
 	@PostMapping("/register")
 	public String postCreateUser (User user) {
 		System.out.println(user);
+		user.setCreatedDate(LocalDate.now());
 		userService.saveUser(user);
 		return "redirect:/register";
 	}
@@ -58,11 +65,26 @@ public class UserController {
 		userService.saveUser(user);
 		return "redirect:/users/"+user.getUserId();
 	}
-	
+
+
 	@PostMapping("/users/{userId}/delete")
 	public String deleteOneUser (@PathVariable Long userId) {
 		userService.delete(userId);
 		return "redirect:/users";
+	}
+
+	@GetMapping("/users/{userId}/accounts/{accountId}")
+	public String getAccount(ModelMap model,
+							 @PathVariable Long userId,
+							 @PathVariable Long accountId){
+		Account account = accountService.findByAccountId(accountId);
+		model.put("account",account);
+		return "account";
+	}
+	@PostMapping("/users/{userId}/accounts/{accountId}")
+	public String saveAccount(Account account){
+
+		return "redirect:/users/account/" + account.getAccountId();
 	}
 
 

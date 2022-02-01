@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en-us" xmlns:th="http://thymeLeaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:title="${account.accountName}"></title>
+</head>
+<body>
+    <h1 th:text="${account.accountName}"></h1>
+
+    <div>
+        <form action="" method="post">
+            <div>
+                Account Name: <label><input type="text" th:field="${account.accountName}" /></label>
+            </div>
+            <br>
+            <div>
+                <label><input type="submit" value="Save Account" /></label>
+            </div>
+        </form>
+        <form>
+            <div>
+                <span><a th:href="@{/users/{userId}(userId=${account.users[0].userId})}" th:text="back" method="post"></a></span>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

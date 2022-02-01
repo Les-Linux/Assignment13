@@ -58,7 +58,7 @@ public class User {
 	public void setAccounts(List<Account> accounts) {
 		this.accounts = accounts;
 	}
-	@OneToOne(mappedBy = "user", cascade={CascadeType.MERGE,CascadeType.PERSIST})
+	@OneToOne(mappedBy = "user", cascade={CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REMOVE})
 	public Address getAddress() {
 		return address;
 	}
