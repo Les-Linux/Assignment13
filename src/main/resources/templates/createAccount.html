@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en-us" xmlns:th="http://thymeLeaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Account</title>
+</head>
+<body>
+    <h1>Create Account</h1>
+    <div>
+        <form th:action="@{/users/{userId}/accounts(userId=${user.userId})}" method="post">
+            <label><input type="hidden" th:field="${user.userId}" /></label>
+            Account Name: <label><input type="text" th:field="${account.accountName}" /></label><br>
+            <th:block>
+                <input type="submit" value="save" style="font-size: 80px" />
+            </th:block>
+        </form>
+    </div>
+</body>
+</html>

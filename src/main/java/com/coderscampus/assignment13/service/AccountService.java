@@ -9,11 +9,17 @@ import java.util.Optional;
 
 @Service
 public class AccountService {
+
     @Autowired
-    private AccountRepository accountRepository;
+    private AccountRepository accountRepo;
 
     public Account findByAccountId(Long accountId){
-        Optional<Account> accountOpt = accountRepository.findById(accountId);
+        Optional<Account> accountOpt = accountRepo.findById(accountId);
         return accountOpt.orElse(new Account());
     }
+
+    public Account saveAccount(Account account){
+        return accountRepo.save(account);
+    }
+
 }
